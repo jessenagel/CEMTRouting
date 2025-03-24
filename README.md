@@ -1,4 +1,4 @@
-# GraphSwimmer
+# CEMTRouting
 
 A Spring Boot API for routing on waterways in the Netherlands.
 
@@ -14,7 +14,7 @@ A Spring Boot API for routing on waterways in the Netherlands.
 
 ## Introduction
 
-GraphSwimmer is a Spring Boot application designed to provide routing capabilities on waterways in the Netherlands. It uses a custom graph structure to represent the waterways and supports various routing algorithms.
+CEMTRouting is a Spring Boot package designed to provide routing capabilities on waterways in the Netherlands. It uses a custom graph structure to represent the waterways and supports various routing algorithms.
 
 ## Features
 
