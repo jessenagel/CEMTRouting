@@ -14,9 +14,8 @@ permissions:
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - 'v*' # Only execute when pushing a tag that matches v*
 
 jobs:
   build:
