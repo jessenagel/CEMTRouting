@@ -28,7 +28,7 @@ GraphSwimmer is a Spring Boot application designed to provide routing capabiliti
 Download the latest .jar from the releases page and run it using Java:
 
 ```sh
-    java -jar GraphSwimmer-0.0.1-SNAPSHOT.jar
+    java -jar CEMTRouting-x.x.x.jar
 ```
 
 ## Building from source
