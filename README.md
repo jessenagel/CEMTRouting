@@ -42,7 +42,7 @@ Download the latest .jar from the releases page and run it using Java:
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/jessenagel/GraphSwimmer.git
+    git clone https://github.com/jessenagel/CEMTRouting.git
     cd GraphSwimmer
     ```
 
