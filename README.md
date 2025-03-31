@@ -67,7 +67,7 @@ Once the application is running, you can access the API endpoints to perform rou
 To get a route between two points, use the following endpoint:
 ```sh
 GET /route?pointFrom=POINT_A&pointTo=POINT_B
-
+'''
 Points are formatted
 
 In addition, you can specifiy the minimum CEMT class that a route should have using:
@@ -75,7 +75,7 @@ In addition, you can specifiy the minimum CEMT class that a route should have us
 GET /route?pointFrom=POINT_A&pointTo=POINT_B&CEMTClass=V_A
 
 CEMT classes are formatted as:
-
+'''
 _0, I, II, III, IV, V_A, V_B, VI_A, VI_B, VI_C, VII
-
+'''
 If no class is provided, all edges are allowed.
