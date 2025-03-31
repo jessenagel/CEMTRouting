@@ -69,9 +69,9 @@ To get a route between two points, use the following endpoint:
 GET /route?pointFrom=POINT_A&pointTo=POINT_B
 ```
 In addition, you can specifiy the minimum CEMT class that a route should have using:
-
+```
 GET /route?pointFrom=POINT_A&pointTo=POINT_B&CEMTClass=V_A
-
+```
 CEMT classes are formatted as:
 ```
 _0, I, II, III, IV, V_A, V_B, VI_A, VI_B, VI_C, VII
