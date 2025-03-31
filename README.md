@@ -1,5 +1,9 @@
 # CEMTRouting
 
+
+[![DOI](https://zenodo.org/badge/905143228.svg)](https://doi.org/10.5281/zenodo.15114238)
+
+
 A Spring Boot API for routing on waterways in the Netherlands.
 
 ## Table of Contents
