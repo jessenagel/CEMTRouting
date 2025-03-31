@@ -65,7 +65,7 @@ Once the application is running, you can access the API endpoints to perform rou
 ### Example
 
 To get a route between two points, use the following endpoint:
-```sh
+```
 GET /route?pointFrom=POINT_A&pointTo=POINT_B
 ```
 In addition, you can specifiy the minimum CEMT class that a route should have using:
