@@ -46,12 +46,14 @@ Download the latest .jar from the releases page and run it using Java:
     cd CEMTRouting
     ```
 
-2. Build the project using Maven:
+2. (Optional) Convert the latest Bevaarbaarheid file from https://data.overheid.nl/dataset/14509-vaarweg-netwerk-nederland--vnds----bevaarbaarheidsinformatie to json using a program such as QGis and replace bevaarbaarheid.json in the project directory with the updated file
+
+3. Build the project using Maven:
     ```sh
     mvn clean install
     ```
-
-3. Run the application:
+ 
+4. Run the application:
     ```sh
     mvn spring-boot:run
     ```
@@ -65,3 +67,15 @@ Once the application is running, you can access the API endpoints to perform rou
 To get a route between two points, use the following endpoint:
 ```sh
 GET /route?pointFrom=POINT_A&pointTo=POINT_B
+
+Points are formatted
+
+In addition, you can specifiy the minimum CEMT class that a route should have using:
+
+GET /route?pointFrom=POINT_A&pointTo=POINT_B&CEMTClass=V_A
+
+CEMT classes are formatted as:
+
+_0, I, II, III, IV, V_A, V_B, VI_A, VI_B, VI_C, VII
+
+If no class is provided, all edges are allowed.
