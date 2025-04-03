@@ -25,8 +25,8 @@ CEMTRouting is a Spring Boot package designed to provide routing capabilities on
 
 
 ## Installation
-Download the latest .jar from the releases page and run it using Java:
-
+Download the bevaarbaarheid.json file from the repository or from https://data.overheid.nl/dataset/14509-vaarweg-netwerk-nederland--vnds----bevaarbaarheidsinformatie and place it in the project directory.
+Download the latest .jar from the releases page (and place it in the same directory as bevaarbaarheid.json) and run it in using Java:
 ```sh
     java -jar CEMTRouting-x.x.x.jar
 ```
