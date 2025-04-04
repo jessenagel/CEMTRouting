@@ -137,6 +137,9 @@ public class CEMTGraph {
     public List<CEMTNode> getRoute(CEMTNode from, CEMTNode to, CEMTKlasse klasse) {
         return dijkstra(from, to, klasse);
     }
+    public List<CEMTNode> getRoute(CEMTNode from, CEMTNode to) {
+        return dijkstra(from, to, CEMTKlasse.zero);
+    }
 
     public Map<CEMTNode, Map<CEMTNode, Double>> getDistanceMatrix(List<CEMTNode> nodes, CEMTKlasse klasse) {
         HashMap<CEMTNode, Map<CEMTNode, Double>> distanceMatrix = new HashMap<>();
@@ -233,7 +236,7 @@ public class CEMTGraph {
         for (int i = 0; i < route.size() - 1; i++) {
             CEMTEdge edge = findEdgeByNodes(route.get(i), route.get(i + 1));
             if (edge == null) {
-                return 0;
+                return -1.0;
             }
             length += edge.getLength();
         }
@@ -246,6 +249,47 @@ public class CEMTGraph {
             double minDist = Double.MAX_VALUE;
             CEMTNode nearest = null;
             for (CEMTNode node : adj.keySet()) {
+                double dist = Geodesic.WGS84.Inverse(node.getLatitude(), node.getLongitude(), fromLat, fromLon).s12;
+                if (dist < minDist) {
+                    minDist = dist;
+                    nearest = node;
+                }
+            }
+            return nearest;
+        }
+        return fromNode;
+    }
+
+    public CEMTNode getNodeOrNearest(double fromLat, double fromLon, CEMTKlasse minimumCEMTClass) {
+        CEMTNode fromNode = getNode(fromLat, fromLon);
+        System.out.println(fromNode);
+        if (fromNode != null) {
+            boolean isValid = false;
+            for (CEMTEdge edge : adj.get(fromNode)) {
+                if (edge.getKlasse().compareTo(minimumCEMTClass) >= 0) {
+                    isValid = true;
+                    break;
+                }
+            }
+            if (!isValid) {
+                fromNode = null;
+            }
+        }
+        System.out.println(fromNode);
+        if (fromNode == null) {
+            double minDist = Double.MAX_VALUE;
+            CEMTNode nearest = null;
+            for (CEMTNode node : adj.keySet()) {
+                boolean isValid = false;
+                for (CEMTEdge edge : adj.get(node)) {
+                    if (edge.getKlasse().compareTo(minimumCEMTClass) >= 0) {
+                        isValid = true;
+                        break;
+                    }
+                }
+                if (!isValid) {
+                    continue;
+                }
                 double dist = Geodesic.WGS84.Inverse(node.getLatitude(), node.getLongitude(), fromLat, fromLon).s12;
                 if (dist < minDist) {
                     minDist = dist;
