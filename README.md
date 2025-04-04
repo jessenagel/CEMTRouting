@@ -91,6 +91,6 @@ Note that square brackets are not valid http characters and have to be encoded t
 ```
 nearestNodeMethod='nearest' (default) or 'class'
 ```
-Determines the way the nearest node is determined. If 'nearest' is used, the nearest node to the given coordinates is used, which might make the route infeasible. If 'class' is used, the nearest node with the same CEMT class as the given coordinates is used.
+Determines the way the nearest node is determined. If 'nearest' is used, the nearest node to the given coordinates is used, which might make the route infeasible. If 'class' is used, the nearest node with the at least the same CEMT class as the given coordinates is used.
 The distance that must be travelled over land to reach this node is NOT included in the route length. 
 
