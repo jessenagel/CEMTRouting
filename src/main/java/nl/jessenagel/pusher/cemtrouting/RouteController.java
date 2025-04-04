@@ -58,8 +58,19 @@ public class RouteController {
         }
 
         //Calculate the route by calling the CEMTGraph
+<<<<<<< Updated upstream
 
         List<CEMTNode> route = graph.getRoute(fromNode, toNode,klasse);
+=======
+        List<CEMTNode> route;
+        try {
+            logger.info("Calculating route from {} to {}", fromNode, toNode);
+            route = graph.getRoute(fromNode, toNode, klasse);
+        } catch (Exception e) {
+            logger.error("Error calculating route: ", e);
+            return new Route(1, "Error: An error occurred while calculating the route.", new ArrayList<>(), 0.0);
+        }
+>>>>>>> Stashed changes
         if (route.isEmpty()) {
             return new Route(1, "Error, route not found. Possible that there is no route possible with the requested CEMT Class",new ArrayList<>(),-1.0);
         }
