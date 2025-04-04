@@ -81,3 +81,11 @@ CEMT classes are formatted as:
 _0, I, II, III, IV, V_A, V_B, VI_A, VI_B, VI_C, VII
 ```
 If no class is provided, all edges are allowed.
+
+It is also possible to request a distance matrix, using
+
+```
+GET /distanceMatrix?coordinates=[[lat1,lon1],[lat2,lon2],...],CEMTClass=V_A
+```
+
+Note that square brackets are not valid http characters and have to be encoded to before sending the get request.
