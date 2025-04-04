@@ -262,7 +262,6 @@ public class CEMTGraph {
 
     public CEMTNode getNodeOrNearest(double fromLat, double fromLon, CEMTKlasse minimumCEMTClass) {
         CEMTNode fromNode = getNode(fromLat, fromLon);
-        System.out.println(fromNode);
         if (fromNode != null) {
             boolean isValid = false;
             for (CEMTEdge edge : adj.get(fromNode)) {
@@ -275,7 +274,6 @@ public class CEMTGraph {
                 fromNode = null;
             }
         }
-        System.out.println(fromNode);
         if (fromNode == null) {
             double minDist = Double.MAX_VALUE;
             CEMTNode nearest = null;
