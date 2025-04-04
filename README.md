@@ -80,9 +80,17 @@ If no class is provided, all edges are allowed.
 
 It is also possible to request a distance matrix, using
 
-
 ```
 GET /distanceMatrix?coordinates=[[lat1,lon1],[lat2,lon2],...],CEMTClass=V_A
 ```
 
 Note that square brackets are not valid http characters and have to be encoded to before sending the get request.
+
+### Other options that can be specified
+
+```
+nearestNodeMethod='nearest' (default) or 'class'
+```
+Determines the way the nearest node is determined. If 'nearest' is used, the nearest node to the given coordinates is used, which might make the route infeasible. If 'class' is used, the nearest node with the same CEMT class as the given coordinates is used.
+The distance that must be travelled over land to reach this node is NOT included in the route length. 
+
