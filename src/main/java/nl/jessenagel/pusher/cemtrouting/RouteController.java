@@ -28,7 +28,7 @@ public class RouteController {
         String[] from = pointFrom.split(",");
         String[] to = pointTo.split(",");
         if (from.length != 2 || to.length != 2) {
-            return new Route(1, "Error, not formatted as '",new ArrayList<>(), 0.0);
+            return new Route(1, "Error: 'pointFrom' and 'pointTo' should be formatted as 'lat,lon'.", new ArrayList<>(), 0.0);
         }
         double fromLat;
         double fromLon;
@@ -48,31 +48,25 @@ public class RouteController {
             toLat = Double.parseDouble(to[0]);
             toLon = Double.parseDouble(to[1]);
         } catch (NumberFormatException e) {
-            return new Route(1, "Error",new ArrayList<>(),-1.0);
+            return new Route(1, "Error: Invalid latitude or longitude format.", new ArrayList<>(), 0.0);
         }
         //Get the CEMTNodes
         CEMTNode fromNode = graph.getNodeOrNearest(fromLat, fromLon);
         CEMTNode toNode = graph.getNodeOrNearest(toLat, toLon);
         if (fromNode == null || toNode == null) {
-            return new Route(1, "Error",new ArrayList<>(),-1.0);
+            return new Route(1, "Error: Unable to find nodes near the provided coordinates.", new ArrayList<>(), 0.0);
         }
 
         //Calculate the route by calling the CEMTGraph
-<<<<<<< Updated upstream
-
-        List<CEMTNode> route = graph.getRoute(fromNode, toNode,klasse);
-=======
         List<CEMTNode> route;
         try {
-            logger.info("Calculating route from {} to {}", fromNode, toNode);
             route = graph.getRoute(fromNode, toNode, klasse);
         } catch (Exception e) {
             logger.error("Error calculating route: ", e);
             return new Route(1, "Error: An error occurred while calculating the route.", new ArrayList<>(), 0.0);
         }
->>>>>>> Stashed changes
         if (route.isEmpty()) {
-            return new Route(1, "Error, route not found. Possible that there is no route possible with the requested CEMT Class",new ArrayList<>(),-1.0);
+            return new Route(1, "Error: Route not found. There may be no route possible with the requested CEMT Class.", new ArrayList<>(), 0.0);
         }
 
         List<List<Double>> coordinates = new ArrayList<>();

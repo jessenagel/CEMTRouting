@@ -195,12 +195,7 @@ public class CEMTGraph {
                 if (edge.getKlasse().compareTo(minimumCEMTClass) < 0) {
                     newDist = 1000000000;
                 }
-<<<<<<< Updated upstream
-                if(newDist < 1000000000){
-=======
-
                 if (newDist < 1000000000) {
->>>>>>> Stashed changes
                     allUnreachable = false;
                 }
                 if (newDist < distance.getOrDefault(neighbour, Double.MAX_VALUE)) {
