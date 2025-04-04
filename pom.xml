@@ -10,7 +10,7 @@
     </parent>
     <groupId>nl.jessenagel.pusher</groupId>
     <artifactId>CEMTRouting</artifactId>
-    <version>1.0.2-ALPHA</version>
+    <version>1.0.3-ALPHA</version>
     <name>CEMTRouting</name>
     <description>CEMTRouting</description>
     <url/>
