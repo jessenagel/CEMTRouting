@@ -80,6 +80,7 @@ If no class is provided, all edges are allowed.
 
 It is also possible to request a distance matrix, using
 
+
 ```
 GET /distanceMatrix?coordinates=[[lat1,lon1],[lat2,lon2],...],CEMTClass=V_A
 ```
