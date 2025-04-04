@@ -1,17 +1,18 @@
 package nl.jessenagel.pusher.cemtrouting;
 
 
-
 import net.sf.geographiclib.Geodesic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
-public class CEMTGraph{
+
+public class CEMTGraph {
     Logger logger = LogManager.getLogger(RouteController.class);
 
     private final Map<CEMTNode, List<CEMTEdge>> adj;
     private boolean directed = false;
+
     public CEMTGraph() {
         adj = new HashMap<>();
     }
@@ -26,7 +27,7 @@ public class CEMTGraph{
         CEMTEdge edge1 = new CEMTEdge(b, distance, klasse);
         adj.get(a).add(edge1); //add edge
         if (!directed) { //undirected
-            CEMTEdge cemtEdge2= new CEMTEdge(a, distance, klasse);
+            CEMTEdge cemtEdge2 = new CEMTEdge(a, distance, klasse);
             adj.get(b).add(cemtEdge2);
         }
     }
@@ -37,7 +38,7 @@ public class CEMTGraph{
         if (!adj.containsKey(a) || !adj.containsKey(b)) //invalid input
             return null;
         List<CEMTEdge> ne = adj.get(a);
-        for (CEMTEdge edge: ne) {
+        for (CEMTEdge edge : ne) {
             if (edge.getNeighbour().equals(b)) {
                 return edge;
             }
@@ -73,12 +74,12 @@ public class CEMTGraph{
             return false;
         if (!directed) { //undirected
             List<CEMTEdge> ne1 = adj.get(a);
-            for (CEMTEdge edge: ne1) {
+            for (CEMTEdge edge : ne1) {
                 CEMTEdge edge1 = findEdgeByNodes(edge.getNeighbour(), a);
                 adj.get(edge.getNeighbour()).remove(edge1);
             }
         } else { //directed
-            for (CEMTNode key: adj.keySet()) {
+            for (CEMTNode key : adj.keySet()) {
                 CEMTEdge edge2 = findEdgeByNodes(key, a);
                 if (edge2 != null)
                     adj.get(key).remove(edge2);
@@ -99,12 +100,12 @@ public class CEMTGraph{
         CEMTEdge edge1 = findEdgeByNodes(a, b);
         if (directed) {//directed
             return edge1 != null;
-        }
-        else { //undirected or bi-directed
+        } else { //undirected or bi-directed
             CEMTEdge edge2 = findEdgeByNodes(b, a);
             return edge1 != null && edge2 != null;
         }
     }
+
     public boolean isDirected() {
         return directed;
     }
@@ -119,7 +120,7 @@ public class CEMTGraph{
 
     public int numberOfEdges() {
         int count = 0;
-        for (CEMTNode key: adj.keySet()) {
+        for (CEMTNode key : adj.keySet()) {
             count += adj.get(key).size();
         }
         return count;
@@ -133,8 +134,29 @@ public class CEMTGraph{
                 '}';
     }
 
-    public List<CEMTNode> getRoute(CEMTNode from, CEMTNode to, CEMTKlasse klasse){
-        return dijkstra(from,  to, klasse);
+    public List<CEMTNode> getRoute(CEMTNode from, CEMTNode to, CEMTKlasse klasse) {
+        return dijkstra(from, to, klasse);
+    }
+
+    public Map<CEMTNode, Map<CEMTNode, Double>> getDistanceMatrix(List<CEMTNode> nodes, CEMTKlasse klasse) {
+        HashMap<CEMTNode, Map<CEMTNode, Double>> distanceMatrix = new HashMap<>();
+        for (CEMTNode nodeFrom : nodes) {
+            distanceMatrix.put(nodeFrom, new HashMap<>());
+            for (CEMTNode nodeTo : nodes) {
+                if (nodeFrom.equals(nodeTo)) {
+                    distanceMatrix.get(nodeFrom).put(nodeTo, 0.0);
+                } else {
+                    List<CEMTNode> path = dijkstra(nodeFrom, nodeTo, klasse);
+                    if (path.isEmpty()) {
+                        distanceMatrix.get(nodeFrom).put(nodeTo, -1.0);
+                    } else {
+                        double length = calculateRouteLength(path);
+                        distanceMatrix.get(nodeFrom).put(nodeTo, length);
+                    }
+                }
+            }
+        }
+        return distanceMatrix;
     }
 
     private List<CEMTNode> dijkstra(CEMTNode from, CEMTNode to, CEMTKlasse minimumCEMTClass) {
@@ -144,8 +166,10 @@ public class CEMTGraph{
         Set<CEMTNode> visited = new HashSet<>();
         distance.put(from, 0.0);
         queue.add(from);
+        logger.debug("Dijkstra: from {} to {}", from, to);
         while (!queue.isEmpty()) {
             CEMTNode current = queue.poll();
+            logger.debug("Dijkstra: visiting {}", current);
             if (current.equals(to)) {
                 List<CEMTNode> path = new ArrayList<>();
                 while (previous.containsKey(current)) {
@@ -154,7 +178,8 @@ public class CEMTGraph{
                 }
                 path.add(from);
                 Collections.reverse(path);
-                if(distance.get(current) >= 100000000){
+                logger.debug("Dijkstra: found path {} with distance {}", path, distance.get(to));
+                if (distance.get(current) >= 100000000) {
                     return new ArrayList<>();
                 }
                 return path;
@@ -167,11 +192,10 @@ public class CEMTGraph{
             for (CEMTEdge edge : adj.get(current)) {
                 CEMTNode neighbour = edge.getNeighbour();
                 double newDist = distance.get(current) + edge.getLength();
-                if(edge.getKlasse().compareTo(minimumCEMTClass) < 0){
+                if (edge.getKlasse().compareTo(minimumCEMTClass) < 0) {
                     newDist = 1000000000;
                 }
-
-                if(newDist < 1000000000){
+                if (newDist < 1000000000) {
                     allUnreachable = false;
                 }
                 if (newDist < distance.getOrDefault(neighbour, Double.MAX_VALUE)) {
@@ -182,10 +206,12 @@ public class CEMTGraph{
                 }
 
             }
-            if(allUnreachable){
+            if (allUnreachable) {
+                logger.debug("All neighbours of {} are unreachable", current);
                 return new ArrayList<>();
             }
         }
+        logger.debug("Dijkstra: no path found from {} to {}", from, to);
         return new ArrayList<>();
     }
 
@@ -220,7 +246,7 @@ public class CEMTGraph{
             double minDist = Double.MAX_VALUE;
             CEMTNode nearest = null;
             for (CEMTNode node : adj.keySet()) {
-                double dist = Geodesic.WGS84.Inverse(node.getLatitude(),node.getLongitude(), fromLat, fromLon).s12;
+                double dist = Geodesic.WGS84.Inverse(node.getLatitude(), node.getLongitude(), fromLat, fromLon).s12;
                 if (dist < minDist) {
                     minDist = dist;
                     nearest = node;
