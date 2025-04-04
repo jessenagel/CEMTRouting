@@ -12,10 +12,6 @@ A Spring Boot API for routing on waterways in the Netherlands.
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Introduction
 
 CEMTRouting is a Spring Boot package designed to provide routing capabilities on waterways in the Netherlands. It uses a custom graph structure to represent the waterways and supports various routing algorithms.
