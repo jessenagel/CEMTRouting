@@ -8,7 +8,7 @@
         <version>3.3.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>nl.jessenagel.pusher</groupId>
+    <groupId>nl.jessenagel.optimization</groupId>
     <artifactId>cemtrouting</artifactId>
     <version>1.0.3-ALPHA</version>
     <name>CEMTRouting</name>
