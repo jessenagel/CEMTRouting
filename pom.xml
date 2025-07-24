@@ -10,7 +10,7 @@
     </parent>
     <groupId>nl.jessenagel.optimization</groupId>
     <artifactId>cemtrouting</artifactId>
-    <version>1.0.3-ALPHA</version>
+    <version>0.1.0</version>
     <name>CEMTRouting</name>
     <url/>
     <licenses>
