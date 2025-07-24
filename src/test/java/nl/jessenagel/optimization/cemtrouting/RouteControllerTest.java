@@ -1,4 +1,4 @@
-package nl.jessenagel.pusher.cemtrouting;
+package nl.jessenagel.optimization.cemtrouting;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package nl.jessenagel.pusher.cemtrouting;
+package nl.jessenagel.optimization.cemtrouting;
 
 
 import net.sf.geographiclib.Geodesic;
@@ -181,7 +181,7 @@ public class CEMTGraph {
                 }
                 path.add(from);
                 Collections.reverse(path);
-                logger.debug("Dijkstra: found path {} with distance {}", path, distance.get(to));
+                logger.info("Dijkstra: found path {} with distance {}", path, distance.get(to));
                 if (distance.get(current) >= 100000000) {
                     return new ArrayList<>();
                 }
@@ -196,13 +196,13 @@ public class CEMTGraph {
                 CEMTNode neighbour = edge.getNeighbour();
                 double newDist = distance.get(current) + edge.getLength();
                 if (edge.getKlasse().compareTo(minimumCEMTClass) < 0) {
+                    logger.info("Wrong Class: {} {}", edge.getKlasse(), minimumCEMTClass);
                     newDist = 1000000000;
                 }
                 if (newDist < 1000000000) {
                     allUnreachable = false;
                 }
                 if (newDist < distance.getOrDefault(neighbour, Double.MAX_VALUE)) {
-
                     distance.put(neighbour, newDist);
                     previous.put(neighbour, current);
                     queue.add(neighbour);
@@ -214,7 +214,7 @@ public class CEMTGraph {
                 return new ArrayList<>();
             }
         }
-        logger.debug("Dijkstra: no path found from {} to {}", from, to);
+        logger.info("Dijkstra: no path found from {} to {}", from, to);
         return new ArrayList<>();
     }
 

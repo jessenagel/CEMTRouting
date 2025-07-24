@@ -1,4 +1,4 @@
-package nl.jessenagel.pusher.cemtrouting;
+package nl.jessenagel.optimization.cemtrouting;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

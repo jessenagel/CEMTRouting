@@ -9,10 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>nl.jessenagel.pusher</groupId>
-    <artifactId>CEMTRouting</artifactId>
+    <artifactId>cemtrouting</artifactId>
     <version>1.0.3-ALPHA</version>
     <name>CEMTRouting</name>
-    <description>CEMTRouting</description>
     <url/>
     <licenses>
         <license/>
